@@ -1,4 +1,5 @@
 import com.sun.speech.freetts.Voice;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,7 +14,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.Collections.*;
 
 import com.sun.speech.freetts.VoiceManager;
 
@@ -64,30 +66,42 @@ public class GUIController {
     public void showSameWord() {
         entries.clear();
         searchBar.textProperty().addListener(
-                (observable, oldVal, newVal) -> handleSearchByKey(oldVal, newVal));
+                (observable, oldVal, newVal) -> {
+                    if ( oldVal != null && (newVal.length() < oldVal.length()) ) {
+                        sameWord.setItems( entries );
+                    }
+//                    handleSearchByKey(oldVal, newVal);
+                    sameWord.setItems(DictionaryCommandline.dictionarySearcher(sameWord.getItems(), newVal.toUpperCase()));
+                });
         sameWord.setMaxHeight(372);
         for (Word word : Dictionary.words) {
             entries.add(word.getWord_target());
         }
         sameWord.setItems(entries);
+
+        sameWord.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
+//            searchBar.setText(sameWord.getSelectionModel().getSelectedItem());
+//            searchTheWord();
+            textArea.setText(dictionaryManagement.dictionaryLookup(new_val));
+        });
     }
 
-    public void handleSearchByKey(String oldVal, String newVal) {
-        if ( oldVal != null && (newVal.length() < oldVal.length()) ) {
-            sameWord.setItems( entries );
-        }
-
-        newVal = newVal.toUpperCase();
-
-        ObservableList<String> subentries = FXCollections.observableArrayList();
-        for ( Object entry: Collections.unmodifiableList(sameWord.getItems())) {
-            String entryText = (String)entry;
-            if ( entryText.toUpperCase().contains(newVal) ) {
-                subentries.add(entryText);
-            }
-        }
-        sameWord.setItems(subentries);
-    }
+//    public void handleSearchByKey(String oldVal, String newVal) {
+//        if ( oldVal != null && (newVal.length() < oldVal.length()) ) {
+//            sameWord.setItems( entries );
+//        }
+//
+//        newVal = newVal.toUpperCase();
+//
+//        ObservableList<String> subentries = FXCollections.observableArrayList();
+//        for ( Object entry: Collections.unmodifiableList(sameWord.getItems())) {
+//            String entryText = (String)entry;
+//            if ( entryText.toUpperCase().contains(newVal) ) {
+//                subentries.add(entryText);
+//            }
+//        }
+//        sameWord.setItems(subentries);
+//    }
 
     private void speech(String text) {
         VoiceManager voiceManager = VoiceManager.getInstance();
