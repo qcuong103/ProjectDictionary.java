@@ -207,7 +207,7 @@ artificial	adj. /,ɑ:ti'fiʃəl/ nhân tạo
 artificially	adv. /,ɑ:ti'fiʃəli/ nhân tạo
 artist	n. /'ɑ:tist/ nghệ sĩ
 artistic	adj. /ɑ:'tistik/ thuộc nghệ thuật, thuộc mỹ thuật
-as	prep., adv., conj. /æz, əz/ như (as you know…)
+as	
 as soon as	ngay khi
 as well (as)	cũng, cũng như
 ashamed	adj. /ə'ʃeimd/ ngượng, xấu hổ
@@ -3517,3 +3517,6 @@ youth	n. /ju:θ/ tuổi trẻ, tuổi xuân, tuổi thanh niên, tuổi niên th
 zero	number /'ziərou/ số không
 zone	n. /zoun/ khu vực, miền, vùng
 ggwp	ggwp
+ggg	ggw, gg
+	
+zed	naer

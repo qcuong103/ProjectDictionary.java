@@ -28,14 +28,6 @@ public class AddWordController {
     private TextField deleteExplain;
 
     public DictionaryManagement dictionaryManagement = new DictionaryManagement();
-    public void setWordEdit(String oTarget, String oExplain) {
-        oldTarget.setText(oTarget);
-        oldExplain.setText(oExplain);
-    }
-
-//    public void setWordDelete(String delTarget) {
-//        deleteTarget.setText(delTarget);
-//    }
 
     public void goBack(ActionEvent e) throws IOException {
         dictionaryManagement.dictionaryExportToFile();
@@ -54,7 +46,7 @@ public class AddWordController {
     }
 
     public void editWordButton() {
-        dictionaryManagement.fixWord(oldTarget.getText(), newTarget.getText(), newExplain.getText());
+        dictionaryManagement.editWord(oldTarget.getText(), newTarget.getText(), newExplain.getText());
         oldTarget.clear();
         oldExplain.clear();
         newTarget.clear();
@@ -67,6 +59,24 @@ public class AddWordController {
         deleteExplain.clear();
     }
 
+    public void getTargetGUI(String target, int kindButton) {
+        switch (kindButton) {
+            case 1:
+                addTarget.setText(target);
+                break;
+            case 2:
+                oldTarget.setText(target);
+                searchWordEdit();
+                break;
+            default:
+                deleteTarget.setText(target);
+                searchWordDelete();
+        }
+    }
+
+    public void searchWordEdit() {
+        oldExplain.setText(dictionaryManagement.dictionaryLookup(oldTarget.getText()));
+    }
     public void searchWordDelete() {
         deleteExplain.setText(dictionaryManagement.dictionaryLookup(deleteTarget.getText()));
     }

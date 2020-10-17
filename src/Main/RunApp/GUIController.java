@@ -1,3 +1,4 @@
+import com.sun.speech.freetts.Voice;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,11 +13,13 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.util.Collections;
 
 import com.sun.speech.freetts.VoiceManager;
 
 public class GUIController {
     public DictionaryManagement dictionaryManagement = new DictionaryManagement();
+    public AddWordController controller = new AddWordController();
     @FXML
     TextField searchBar;
     @FXML
@@ -31,59 +34,29 @@ public class GUIController {
         } else if (word_Target.matches(".*\\d+.*")) {
             textArea.setText("Please don't include numbers! \n Only one word that contains only letters!");
         } else {
-            textArea.setText(dictionaryManagement.dictionaryLookup(word_Target));
+            String result = dictionaryManagement.dictionaryLookup(word_Target);
+            if (result == null) {
+                textArea.setText("Can't find the word you are looking for");
+            } else {
+                textArea.setText(result);
+            }
         }
     }
 
     public void makeSound() {
-//        File soundNameFile = new File("./src/Main/resources/sound/SoundName.txt");
-//        InputStream inputStream = new FileInputStream(soundNameFile);
-//        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-//        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-//        String line;
-//        String soundName = "notFound";
-//        while ((line = bufferedReader.readLine()) != null) {
-//            if (line.equals(searchBar.getText())) {
-//                soundName = line;
-//            }
-//        }
-//        inputStream.close();
-//        inputStreamReader.close();
-//        bufferedReader.close();
-//        String path = "./src/Main/resources/sound/" + soundName + ".mp3";
-//        Media media = new Media(new File(path).toURI().toString());
-//        MediaPlayer mediaPlayer = new MediaPlayer(media);
-//        mediaPlayer.setAutoPlay(true);
         speech(searchBar.getText());
     }
 
     public void addWord (ActionEvent e) throws IOException {
-        Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("AddWord.fxml"));
-        Parent addWordViewParent = loader.load();
-        Scene scene = new Scene(addWordViewParent);
-        stage.setScene(scene);
+        newScene("AddWord.fxml", e, 1);
     }
 
     public void editWord (ActionEvent e) throws IOException {
-        Stage stage1 = (Stage)((Node) e.getSource()).getScene().getWindow();
-        FXMLLoader loader1 = new FXMLLoader();
-        loader1.setLocation(getClass().getResource("EditWord.fxml"));
-        Parent editWordViewParent = loader1.load();
-        Scene scene1 = new Scene(editWordViewParent);
-        AddWordController controller = loader1.getController();
-        controller.setWordEdit(searchBar.getText(), textArea.getText());
-        stage1.setScene(scene1);
+        newScene("EditWord.fxml", e, 2);
     }
 
     public void deleteWord (ActionEvent e) throws IOException {
-        Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
-        FXMLLoader loader2 = new FXMLLoader();
-        loader2.setLocation(getClass().getResource("DelWord.fxml"));
-        Parent deleteWordViewParent = loader2.load();
-        Scene scene2 = new Scene(deleteWordViewParent);
-        stage.setScene(scene2);
+        newScene("DelWord.fxml", e, 3);
     }
 
     ObservableList<String> entries = FXCollections.observableArrayList();
@@ -106,9 +79,8 @@ public class GUIController {
 
         newVal = newVal.toUpperCase();
 
-        ObservableList<String> subentries;
-        subentries = FXCollections.observableArrayList();
-        for ( Object entry: sameWord.getItems() ) {
+        ObservableList<String> subentries = FXCollections.observableArrayList();
+        for ( Object entry: Collections.unmodifiableList(sameWord.getItems())) {
             String entryText = (String)entry;
             if ( entryText.toUpperCase().contains(newVal) ) {
                 subentries.add(entryText);
@@ -119,11 +91,21 @@ public class GUIController {
 
     private void speech(String text) {
         VoiceManager voiceManager = VoiceManager.getInstance();
-// gọi đến giọng của thằng có tên là kevin 16, có thằng khác tên là kevin và một thằng tên
-// là anna hay gì đó mình không nhớ!
-        com.sun.speech.freetts.Voice syntheticVoice = voiceManager.getVoice("kevin16");
+        // gọi đến giọng của thằng có tên là kevin16, có thằng khác tên là kevin
+        Voice syntheticVoice = voiceManager.getVoice("kevin16");
         syntheticVoice.allocate();
         syntheticVoice.speak(text);
         syntheticVoice.deallocate();
+    }
+
+    public void newScene(String nameFXML, ActionEvent e, int kindButton) throws IOException {
+        Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(nameFXML));
+        Parent deleteWordViewParent = loader.load();
+        Scene scene = new Scene(deleteWordViewParent);
+        controller = loader.getController();
+        controller.getTargetGUI(searchBar.getText(), kindButton);
+        stage.setScene(scene);
     }
 }
