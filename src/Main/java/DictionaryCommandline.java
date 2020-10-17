@@ -1,11 +1,14 @@
-import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.util.Collections;
 
 /**
  * class DictionaryCommandline có hàm showAllWords()
  */
 public class DictionaryCommandline extends DictionaryManagement{
     /**
-     * Hàm showAllWords() có chức năng hiển thị kết quả danh sách dữ liệu từ điểntrên màn hình
+     * Hàm showAllWords() có chức năng hiển thị kết quả danh sách dữ liệu từ điển trên màn hình
      */
     public static void showAllWords() {
         System.out.println("No\t" + "|English\t" + "|Vietnamese");
@@ -36,14 +39,24 @@ public class DictionaryCommandline extends DictionaryManagement{
      * hàm dictionarySearcher() có chức năng tìm kiếm các từ
      */
 
-    public static ArrayList<String> dictionarySearcher(ArrayList<Word> list, String key) {
-        ArrayList<String> result = new ArrayList<>();
-        String pattern = key.toLowerCase();
-        for (Word word : list) {
-            if (word.getWord_target().toLowerCase().matches(pattern)) {
-                result.add(word.getWord_target());
+//    public static ArrayList<String> dictionarySearcher(ArrayList<Word> list, String key) {
+//        ArrayList<String> result = new ArrayList<>();
+//        String pattern = key.toLowerCase();
+//        for (Word word : list) {
+//            if (word.getWord_target().toLowerCase().matches(pattern)) {
+//                result.add(word.getWord_target());
+//            }
+//        }
+//        return result;
+//    }
+    public static ObservableList<String> dictionarySearcher(ObservableList<String> list, String key) {
+        ObservableList<String> subentries = FXCollections.observableArrayList();
+        for ( Object entry: Collections.unmodifiableList(list)) {
+            String entryText = (String) entry;
+            if (entryText.toUpperCase().contains(key)) {
+                subentries.add(entryText);
             }
         }
-        return result;
+        return subentries;
     }
 }
