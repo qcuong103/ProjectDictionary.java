@@ -80,28 +80,9 @@ public class GUIController {
         sameWord.setItems(entries);
 
         sameWord.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
-//            searchBar.setText(sameWord.getSelectionModel().getSelectedItem());
-//            searchTheWord();
             textArea.setText(dictionaryManagement.dictionaryLookup(new_val));
         });
     }
-
-//    public void handleSearchByKey(String oldVal, String newVal) {
-//        if ( oldVal != null && (newVal.length() < oldVal.length()) ) {
-//            sameWord.setItems( entries );
-//        }
-//
-//        newVal = newVal.toUpperCase();
-//
-//        ObservableList<String> subentries = FXCollections.observableArrayList();
-//        for ( Object entry: Collections.unmodifiableList(sameWord.getItems())) {
-//            String entryText = (String)entry;
-//            if ( entryText.toUpperCase().contains(newVal) ) {
-//                subentries.add(entryText);
-//            }
-//        }
-//        sameWord.setItems(subentries);
-//    }
 
     private void speech(String text) {
         VoiceManager voiceManager = VoiceManager.getInstance();

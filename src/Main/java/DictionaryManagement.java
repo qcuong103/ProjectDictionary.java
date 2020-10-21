@@ -57,9 +57,6 @@ public class DictionaryManagement {
                 result = result.replace(" /", "\n /");
                 result = result.replace("/ ", "/ \n");
             }
-//            if (result == null) {
-//                result = "Can't find the word you are looking for";
-//            }
         }
         return result;
     }
@@ -68,24 +65,33 @@ public class DictionaryManagement {
      * các hàm có chức năng thêm sửa xóa dữ liệu từ điển bằng dòng lệnh
      */
     public void addWord(String target, String explain) {
-        if (target != null) {
-            if (dictionaryLookup(target) != null) {
+            if ((dictionaryLookup(target)) != null) {
                 editWord(target, target, (dictionaryLookup(target) + ", " +explain));
             } else {
                 Word word = new Word(target, explain);
                 Dictionary.words.add(word);
             }
-        }
     }
 
+    /**
+     * edit Word.
+     * @param oldTarget .
+     * @param newTarget .
+     * @param newExplain .
+     */
     public void editWord(String oldTarget, String newTarget, String newExplain) {
         for (int i = 0; i < Dictionary.words.size(); i++) {
             if (oldTarget.equals(Dictionary.words.get(i).getWord_target())) {
-                if (newTarget != null) Dictionary.words.get(i).setWord_target(newTarget);
-                if (newExplain != null) Dictionary.words.get(i).setWord_explain(newExplain);
+                if (newTarget.length() != 0) Dictionary.words.get(i).setWord_target(newTarget);
+                if (newExplain.length() != 0) Dictionary.words.get(i).setWord_explain(newExplain);
             }
         }
     }
+
+    /**
+     * Delete Word.
+     * @param delTarget .
+     */
     public void deleteWord(String delTarget) {
         int n = 0;
         for (int i = 0; i < Dictionary.words.size(); i++){

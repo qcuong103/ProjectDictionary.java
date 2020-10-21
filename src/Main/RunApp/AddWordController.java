@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,6 +27,12 @@ public class AddWordController {
     private TextField deleteTarget;
     @FXML
     private TextField deleteExplain;
+    @FXML
+    Text alertADD;
+    @FXML
+    Text alertEDIT;
+    @FXML
+    Text alertDELETE;
 
     public DictionaryManagement dictionaryManagement = new DictionaryManagement();
 
@@ -40,23 +47,42 @@ public class AddWordController {
     }
 
     public void addWordButton() {
-        dictionaryManagement.addWord((addTarget.getText()), (addExplain.getText()));
-        addTarget.clear();
-        addExplain.clear();
+        if ((addTarget.getText().length() == 0) || (addExplain.getText().length() == 0)) {
+            alertADD.setText("Target or/and Explain is NULL");
+        } else {
+            alertADD.setText("DONE!!!");
+            dictionaryManagement.addWord((addTarget.getText()), (addExplain.getText()));
+            addTarget.clear();
+            addExplain.clear();
+        }
     }
 
     public void editWordButton() {
-        dictionaryManagement.editWord(oldTarget.getText(), newTarget.getText(), newExplain.getText());
-        oldTarget.clear();
-        oldExplain.clear();
-        newTarget.clear();
-        newExplain.clear();
+        if (oldTarget.getText().length() == 0) {
+            alertEDIT.setText("Target is NULL");
+        } else if (dictionaryManagement.dictionaryLookup(oldTarget.getText()) == null) {
+            alertEDIT.setText("Can't find the word you are looking for");
+        } else {
+            alertEDIT.setText("DONE!!!");
+            dictionaryManagement.editWord(oldTarget.getText(), newTarget.getText(), newExplain.getText());
+            oldTarget.clear();
+            oldExplain.clear();
+            newTarget.clear();
+            newExplain.clear();
+        }
     }
 
     public void deleteWordButton() {
-        dictionaryManagement.deleteWord(deleteTarget.getText());
-        deleteTarget.clear();
-        deleteExplain.clear();
+        if (deleteTarget.getText().length() == 0) {
+            alertDELETE.setText("Target is NULL");
+        } else if (dictionaryManagement.dictionaryLookup(deleteTarget.getText()) == null) {
+            alertDELETE.setText("Can't find the word you are looking for");
+        } else {
+            alertDELETE.setText("DONE!!!");
+            dictionaryManagement.deleteWord(deleteTarget.getText());
+            deleteTarget.clear();
+            deleteExplain.clear();
+        }
     }
 
     public void getTargetGUI(String target, int kindButton) {
