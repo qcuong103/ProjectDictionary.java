@@ -7,12 +7,6 @@ import java.net.URLEncoder;
 
 public class GoogleAPI {
 
-//    public static void main(String[] args) throws IOException {
-//        String text = "Hello world!";
-//        //Translated text: Hallo Welt!
-//        System.out.println("Translated text: " + translate("en", "vi", text));
-//    }
-
     public static String translate(String text) throws IOException {
         String urlStr = "https://script.google.com/macros/s/AKfycbwBmVcf0EkYabebyujuwz9EsoyHuhrszUoHUBPae3m64f6Rogg/exec" +
                 "?q=" + URLEncoder.encode(text, "UTF-8") +
