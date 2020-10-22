@@ -13,9 +13,9 @@ public class DictionaryManagement {
         int n = input.nextInt();
         input.nextLine();
         for (int i = 0; i < n; i++) {
-            System.out.println("Nhap tu tieng Anh: ");
+            System.out.print("Nhap tu tieng Anh: ");
             String word_Target = input.nextLine();
-            System.out.println("Nhap nghia tieng Viet: ");
+            System.out.print("Nhap nghia tieng Viet: ");
             String word_Explain = input.nextLine();
             Word word = new Word(word_Target, word_Explain);
             Dictionary.words.add(word);
@@ -23,7 +23,7 @@ public class DictionaryManagement {
     }
 
     /**
-     * Hàm insertFromFile() nhập dữ liệu từ điển từ tệp dictionaries.txt
+     * Hàm insertFromFile() nhập dữ liệu từ điển từ tệp Dictionaries.txt
      */
     public void insertFromFile() {
         try {

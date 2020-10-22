@@ -14,8 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections.*;
 
 import com.sun.speech.freetts.VoiceManager;
 
@@ -67,8 +65,8 @@ public class GUIController {
         entries.clear();
         searchBar.textProperty().addListener(
                 (observable, oldVal, newVal) -> {
-                    if ( oldVal != null && (newVal.length() < oldVal.length()) ) {
-                        sameWord.setItems( entries );
+                    if (oldVal != null && (newVal.length() < oldVal.length())) {
+                        sameWord.setItems(entries);
                     }
 //                    handleSearchByKey(oldVal, newVal);
                     sameWord.setItems(DictionaryCommandline.dictionarySearcher(sameWord.getItems(), newVal.toUpperCase()));
@@ -78,10 +76,6 @@ public class GUIController {
             entries.add(word.getWord_target());
         }
         sameWord.setItems(entries);
-
-        sameWord.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
-            textArea.setText(dictionaryManagement.dictionaryLookup(new_val));
-        });
     }
 
     private void speech(String text) {

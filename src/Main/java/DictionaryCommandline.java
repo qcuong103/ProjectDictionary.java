@@ -10,7 +10,7 @@ public class DictionaryCommandline extends DictionaryManagement{
     /**
      * Hàm showAllWords() có chức năng hiển thị kết quả danh sách dữ liệu từ điển trên màn hình
      */
-    public static void showAllWords() {
+    public void showAllWords() {
         System.out.println("No\t" + "|English\t" + "|Vietnamese");
         for (Word word : Dictionary.words) {
             System.out.print((Dictionary.words.indexOf(word) + 1) + "\t");
