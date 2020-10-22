@@ -112,10 +112,10 @@ public class DictionaryManagement {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
             BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
             for (Word word : Dictionary.words) {
-                outputStreamWriter.write(word.getWord_target());
-                outputStreamWriter.write("\t");
-                outputStreamWriter.write(word.getWord_explain());
-                outputStreamWriter.write("\n");
+                outputStreamWriter.write(String.format("%s\t%s\n", word.getWord_target(), word.getWord_explain()));
+//                outputStreamWriter.write("\t");
+//                outputStreamWriter.write(word.getWord_explain());
+//                outputStreamWriter.write("\n");
             }
             outputStreamWriter.flush();
             outputStream.close();
