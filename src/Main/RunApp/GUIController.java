@@ -63,6 +63,7 @@ public class GUIController {
     ObservableList<String> entries = FXCollections.observableArrayList();
 
     public void showSameWord() {
+//        boolean isTrue;
         entries.clear();
         searchBar.textProperty().addListener(
                 (observable, oldVal, newVal) -> {
