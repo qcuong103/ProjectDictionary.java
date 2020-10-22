@@ -1,5 +1,4 @@
 import com.sun.speech.freetts.Voice;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,7 +13,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.util.ArrayList;
 
 import com.sun.speech.freetts.VoiceManager;
 
