@@ -1,6 +1,7 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 /**
@@ -11,7 +12,7 @@ public class DictionaryCommandline extends DictionaryManagement{
      * Hàm showAllWords() có chức năng hiển thị kết quả danh sách dữ liệu từ điển trên màn hình
      */
     public void showAllWords() {
-        System.out.println("No\t" + "|English\t" + "|Vietnamese");
+        System.out.println("No\t" + "|English\t\t\t" + "|Vietnamese");
         for (Word word : Dictionary.words) {
             System.out.print((Dictionary.words.indexOf(word) + 1) + "\t");
             System.out.println(word.getString());
@@ -55,6 +56,16 @@ public class DictionaryCommandline extends DictionaryManagement{
             String entryText = (String) entry;
             if (entryText.toUpperCase().contains(key)) {
                 subentries.add(entryText);
+            }
+        }
+        return subentries;
+    }
+
+    public static ArrayList<String> dictionarySearcher2(ArrayList<String> list, String key) {
+        ArrayList<String> subentries = new ArrayList<>();
+        for (String enty : list) {
+            if (enty.toUpperCase().contains(key)) {
+                subentries.add(enty);
             }
         }
         return subentries;

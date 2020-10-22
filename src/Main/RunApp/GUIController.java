@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.util.ArrayList;
 
 import com.sun.speech.freetts.VoiceManager;
 
@@ -80,7 +81,7 @@ public class GUIController {
 
     private void speech(String text) {
         VoiceManager voiceManager = VoiceManager.getInstance();
-        // gọi đến giọng của thằng có tên là kevin16, có thằng khác tên là kevin
+        // gọi đến giọng của thằng có tên là kevin16, có thằng khác tên là kevin hoặc cũng là kevin16 cả
         Voice syntheticVoice = voiceManager.getVoice("kevin16");
         syntheticVoice.allocate();
         syntheticVoice.speak(text);
