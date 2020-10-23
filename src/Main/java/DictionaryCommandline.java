@@ -1,8 +1,4 @@
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * class DictionaryCommandline có hàm showAllWords()
@@ -30,10 +26,10 @@ public class DictionaryCommandline extends DictionaryManagement{
     /**
      * hàm dictionaryAdvanced() có chức năng gọi hàm insertFromFile(), showAllWords() và dictionaryLookup()
      */
-    public void dictionaryAdvanced(String word){
+    public void dictionaryAdvanced(String target){
         this.insertFromFile();
         showAllWords();
-        this.dictionaryLookup(word);
+        this.dictionaryLookup(target);
     }
 
     /**
@@ -50,18 +46,18 @@ public class DictionaryCommandline extends DictionaryManagement{
 //        }
 //        return result;
 //    }
-    public static ObservableList<String> dictionarySearcher(ObservableList<String> list, String key) {
-        ObservableList<String> subentries = FXCollections.observableArrayList();
-        for ( Object entry: Collections.unmodifiableList(list)) {
-            String entryText = (String) entry;
-            if (entryText.toUpperCase().contains(key)) {
-                subentries.add(entryText);
-            }
-        }
-        return subentries;
-    }
+//    public static ObservableList<String> dictionarySearcher(ObservableList<String> list, String key) {
+//        ObservableList<String> subentries = FXCollections.observableArrayList();
+//        for ( Object entry: Collections.unmodifiableList(list)) {
+//            String entryText = (String) entry;
+//            if (entryText.toUpperCase().contains(key)) {
+//                subentries.add(entryText);
+//            }
+//        }
+//        return subentries;
+//    }
 
-    public static ArrayList<String> dictionarySearcher2(ArrayList<String> list, String key) {
+    public static ArrayList<String> dictionarySearcher(ArrayList<String> list, String key) {
         ArrayList<String> subentries = new ArrayList<>();
         for (String enty : list) {
             if (enty.toUpperCase().contains(key)) {

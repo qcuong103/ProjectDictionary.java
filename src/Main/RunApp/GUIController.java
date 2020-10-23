@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.util.ArrayList;
 
 import com.sun.speech.freetts.VoiceManager;
 
@@ -28,8 +29,8 @@ public class GUIController {
     private ListView<String> sameWord;
     @FXML
     CheckBox googleapi;
-    @FXML
-    private void searchTheWord() throws IOException {
+
+    public void searchTheWord() throws IOException {
         if (googleapi.isSelected()) {
             textArea.setText(GoogleAPI.translate(searchBar.getText()));
         } else {
@@ -40,7 +41,7 @@ public class GUIController {
                 textArea.setText("Please don't include numbers! \n Only one word that contains only letters!");
             } else {
                 String result = dictionaryManagement.dictionaryLookup(word_Target);
-                if (result == null) {
+                if (result.length() == 0) {
                     textArea.setText("Can't find the word you are looking for");
                 } else {
                     textArea.setText(result);
@@ -75,21 +76,24 @@ public class GUIController {
     ObservableList<String> entries = FXCollections.observableArrayList();
 
     public void showSameWord() {
-        if (!(googleapi.isSelected())) {
-            entries.clear();
-            searchBar.textProperty().addListener(
-                    (observable, oldVal, newVal) -> {
-                        if (oldVal != null && (newVal.length() < oldVal.length())) {
-                            sameWord.setItems(entries);
-                        }
-                        sameWord.setItems(DictionaryCommandline.dictionarySearcher(sameWord.getItems(), newVal.toUpperCase()));
-                    });
-            sameWord.setMaxHeight(372);
-            for (Word word : Dictionary.words) {
-                entries.add(word.getWord_target());
-            }
-            sameWord.setItems(entries);
+
+        ArrayList<String> listTarget = new ArrayList<>();
+        for (Word word : Dictionary.words) {
+            listTarget.add(word.getWord_target());
         }
+        searchBar.textProperty().addListener(
+                (observable, oldVal, newVal) -> {
+                    entries = FXCollections.observableArrayList(DictionaryCommandline.dictionarySearcher(listTarget, newVal.toUpperCase()));
+                    sameWord.setItems(entries);
+//                    sameWord.getSelectionModel().selectedItemProperty().addListener(
+//                            (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
+//                                textArea.setText(dictionaryManagement.dictionaryLookup(new_val));
+//                            });
+//                    if (newVal.length() > oldVal.length()) {
+//                        sameWord.getSelectionModel().clearSelection();
+//                        textArea.clear();
+//                    }
+                });
     }
 
     private void speech(String text) {

@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.Scanner;
 
+
 public class DictionaryManagement {
     Scanner input = new Scanner(System.in);
 
@@ -49,15 +50,23 @@ public class DictionaryManagement {
     /**
      * hàm dictionaryLookup() có chức năng tra cứu từ điển bằng dòng lệnh
      */
-    public String dictionaryLookup(String word) {
-        String result = null;
-        for (int i = 0; i < Dictionary.words.size(); i++){
-            if(word.equals(Dictionary.words.get(i).getWord_target())) {
-                result = Dictionary.words.get(i).getWord_explain();
-                result = result.replace(" /", "\n /");
-                result = result.replace("/ ", "/ \n");
-            }
+    public String dictionaryLookup(String target) {
+        Trie trie = new Trie();
+        for (Word word : Dictionary.words) {
+            trie.insertRecursive(word);
         }
+        String result = trie.searchRecursive(target);
+//        for (int i = 0; i < Dictionary.words.size(); i++){
+//            if(target.equals(Dictionary.words.get(i).getWord_target())) {
+//                result = Dictionary.words.get(i).getWord_explain();
+//                result = result.replace(" /", "\n /");
+//                result = result.replace("/ ", "/ \n");
+//            }
+//        }
+//
+        result = result.replace(" /", "\n /");
+        result = result.replace("/ ", "/ \n");
+//        return result;
         return result;
     }
 
@@ -65,12 +74,12 @@ public class DictionaryManagement {
      * các hàm có chức năng thêm sửa xóa dữ liệu từ điển bằng dòng lệnh
      */
     public void addWord(String target, String explain) {
-            if ((dictionaryLookup(target)) != null) {
-                editWord(target, target, (dictionaryLookup(target) + ", " +explain));
-            } else {
-                Word word = new Word(target, explain);
-                Dictionary.words.add(word);
-            }
+        if (dictionaryLookup(target).length() != 0) {
+            editWord(target, target, (dictionaryLookup(target) + ", " + explain));
+        } else {
+            Word word = new Word(target, explain);
+            Dictionary.words.add(word);
+        }
     }
 
     /**
