@@ -29,33 +29,25 @@
     </Button>
     <Button layoutX="237.0" layoutY="357.0" mnemonicParsing="false" onAction="#addWord" prefHeight="41.0" prefWidth="70.0" styleClass="search" stylesheets="@styles.css" text="ADD" textFill="WHITE">
       <graphic>
-         <ImageView fitHeight="25.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@image/icon-add-23%20(1).png" />
-            </image>
-         </ImageView>
+          <ImageView fitHeight="25.0" fitWidth="32.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+              <Image url="@image/icon-add-23.png" />
+          </ImageView>
       </graphic></Button>
     <Button layoutX="237.0" layoutY="412.0" mnemonicParsing="false" onAction="#editWord" prefHeight="36.0" prefWidth="70.0" styleClass="search" stylesheets="@styles.css" text="EDIT" textFill="WHITE">
       <graphic>
-         <ImageView fitHeight="26.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@image/edit-11-512.png" />
-            </image>
-         </ImageView>
+          <ImageView fitHeight="26.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+              <Image url="@image/edit-11-512.png" />
+          </ImageView>
       </graphic></Button>
     <Button layoutX="237.0" layoutY="464.0" mnemonicParsing="false" onAction="#deleteWord" prefHeight="36.0" prefWidth="70.0" styleClass="search" stylesheets="@styles.css" textFill="WHITE">
       <graphic>
-         <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@image/icon-delete-16.png" />
-            </image>
-         </ImageView>
+          <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+              <Image url="@image/icon-delete-16.png" />
+          </ImageView>
       </graphic></Button>
     <ListView fx:id="sameWord" layoutX="14.0" layoutY="128.0" prefHeight="373.0" prefWidth="211.0" />
-   <ImageView accessibleRole="BUTTON" fitHeight="32.0" fitWidth="40.0" layoutX="192.0" layoutY="79.0" nodeOrientation="INHERIT" onMouseClicked="#deleteSearcherBar" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@image/42614814-delete-backspace-key-line-art-icon-for-apps-and-websites.png" />
-      </image>
-   </ImageView>
+    <ImageView accessibleRole="BUTTON" fitHeight="32.0" fitWidth="40.0" layoutX="192.0" layoutY="79.0" nodeOrientation="INHERIT" onMouseClicked="#deleteSearcherBar" pickOnBounds="true" preserveRatio="true">
+        <Image url="@image/42614814-delete-backspace-key-line-art-icon-for-apps-and-websites.png" />
+    </ImageView>
    <CheckBox fx:id="googleapi" layoutX="229.0" layoutY="173.0" mnemonicParsing="false" text="Google API" />
 </Pane>

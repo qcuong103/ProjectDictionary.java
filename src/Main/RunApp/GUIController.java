@@ -1,4 +1,5 @@
 import com.sun.speech.freetts.Voice;
+import com.sun.speech.freetts.en.us.cmu_time_awb.AlanVoiceDirectory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -85,14 +86,6 @@ public class GUIController {
                 (observable, oldVal, newVal) -> {
                     entries = FXCollections.observableArrayList(DictionaryCommandline.dictionarySearcher(listTarget, newVal.toUpperCase()));
                     sameWord.setItems(entries);
-//                    sameWord.getSelectionModel().selectedItemProperty().addListener(
-//                            (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
-//                                textArea.setText(dictionaryManagement.dictionaryLookup(new_val));
-//                            });
-//                    if (newVal.length() > oldVal.length()) {
-//                        sameWord.getSelectionModel().clearSelection();
-//                        textArea.clear();
-//                    }
                 });
     }
 

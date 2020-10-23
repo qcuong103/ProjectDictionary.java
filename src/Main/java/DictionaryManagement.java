@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class DictionaryManagement {
     Scanner input = new Scanner(System.in);
+    Trie trie = new Trie();
+
 
     /**
      * Hàm insertFromCommandline() có chức năng nhập liệu
@@ -45,28 +47,25 @@ public class DictionaryManagement {
         } catch (Exception ex) {
             System.out.println("Loi doc file: "+ex);
         }
+
     }
 
     /**
      * hàm dictionaryLookup() có chức năng tra cứu từ điển bằng dòng lệnh
      */
     public String dictionaryLookup(String target) {
-        Trie trie = new Trie();
         for (Word word : Dictionary.words) {
             trie.insertRecursive(word);
         }
-        String result = trie.searchRecursive(target);
-//        for (int i = 0; i < Dictionary.words.size(); i++){
-//            if(target.equals(Dictionary.words.get(i).getWord_target())) {
-//                result = Dictionary.words.get(i).getWord_explain();
-//                result = result.replace(" /", "\n /");
-//                result = result.replace("/ ", "/ \n");
-//            }
-//        }
-//
+        String result;
+        result = trie.searchRecursive(target);
         result = result.replace(" /", "\n /");
         result = result.replace("/ ", "/ \n");
-//        return result;
+
+        for (Word word : Dictionary.words) {
+            trie.delete(word.getWord_target());
+        }
+
         return result;
     }
 
@@ -107,8 +106,9 @@ public class DictionaryManagement {
             if(delTarget.equals(Dictionary.words.get(i).getWord_target())){
                 n = i;
             }
+            Dictionary.words.remove(n);
         }
-        Dictionary.words.remove(n);
+
     }
 
     /**
@@ -122,9 +122,6 @@ public class DictionaryManagement {
             BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
             for (Word word : Dictionary.words) {
                 outputStreamWriter.write(String.format("%s\t%s\n", word.getWord_target(), word.getWord_explain()));
-//                outputStreamWriter.write("\t");
-//                outputStreamWriter.write(word.getWord_explain());
-//                outputStreamWriter.write("\n");
             }
             outputStreamWriter.flush();
             outputStream.close();
@@ -134,4 +131,5 @@ public class DictionaryManagement {
             System.out.println("Loi ghi file: "+ex);
         }
     }
+
 }

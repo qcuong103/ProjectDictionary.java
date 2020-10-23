@@ -2,11 +2,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Trie {
-    private class TrieNode {
+    public static class TrieNode {
         Map<Character, TrieNode> children;
         boolean endOfWord;
         String explainOfNode;
-
         public TrieNode() {
             children = new HashMap<>();
             endOfWord = false;
@@ -14,24 +13,9 @@ public class Trie {
         }
     }
 
-    private final TrieNode root;
-
+    public TrieNode root;
     public Trie() {
         root = new TrieNode();
-    }
-
-    public void insert(Word word) {
-        TrieNode current = root;
-        for (int i = 0; 1 < word.getWord_target().length(); i++) {
-            char ch = word.getWord_target().charAt(i);
-            TrieNode node = current.children.get(ch);
-            if (node == null) {
-                node = new TrieNode();
-                current.children.put(ch, node);
-            }
-            current = node;
-        }
-        current.endOfWord = true;
     }
 
     public void insertRecursive(Word word) {
@@ -41,7 +25,7 @@ public class Trie {
     private void insertRecursive(TrieNode current, Word word, int index) {
         if (index == word.getWord_target().length()) {
             current.endOfWord = true;
-            current.explainOfNode = word.getWord_explain();
+            current.explainOfNode += ", " + word.getWord_explain();
             return;
         }
         char ch = word.getWord_target().charAt(index);
@@ -52,19 +36,6 @@ public class Trie {
             current.children.put(ch, node);
         }
         insertRecursive(node, word, index + 1);
-    }
-
-    public String search(String word) {
-        TrieNode current = root;
-        for (int i = 0; i < word.length(); i++) {
-            char ch = word.charAt(i);
-            TrieNode node = current.children.get(ch);
-            if (node == null) {
-                return "false";
-            }
-            current = node;
-        }
-        return current.explainOfNode;
     }
 
     public String searchRecursive(String word) {
@@ -78,8 +49,35 @@ public class Trie {
         char ch = word.charAt(index);
         TrieNode node = current.children.get(ch);
         if (node == null) {
-            return "false";
+            return "";
         }
         return searchRecursive(node, word, index + 1);
+    }
+
+    public void delete(String word) {
+        delete(root, word, 0);
+    }
+
+    private boolean delete(TrieNode current, String word, int index) {
+        if (index == word.length()) {
+            if (!current.endOfWord) {
+                return false;
+            }
+            current.endOfWord = false;
+            current.explainOfNode = "";
+            return current.children.size() == 0;
+        }
+        char ch = word.charAt(index);
+        TrieNode node = current.children.get(ch);
+        if (node == null) {
+            return false;
+        }
+        boolean shouldDeleteCurrentNode = delete(node, word, index + 1);
+
+        if (shouldDeleteCurrentNode) {
+            current.children.remove(ch);
+            return current.children.size() == 0;
+        }
+        return false;
     }
 }

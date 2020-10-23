@@ -19,6 +19,7 @@ public class DictionaryApplication extends Application {
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
+
         }
         catch (Exception e) {
             System.out.println(e.getMessage());

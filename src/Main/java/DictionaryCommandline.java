@@ -33,35 +33,13 @@ public class DictionaryCommandline extends DictionaryManagement{
     }
 
     /**
-     * hàm dictionarySearcher() có chức năng tìm kiếm các từ
+     * hàm dictionarySearcher() có chức năng tìm kiếm các từ gợi ý
      */
-
-//    public static ArrayList<String> dictionarySearcher(ArrayList<Word> list, String key) {
-//        ArrayList<String> result = new ArrayList<>();
-//        String pattern = key.toLowerCase();
-//        for (Word word : list) {
-//            if (word.getWord_target().toLowerCase().matches(pattern)) {
-//                result.add(word.getWord_target());
-//            }
-//        }
-//        return result;
-//    }
-//    public static ObservableList<String> dictionarySearcher(ObservableList<String> list, String key) {
-//        ObservableList<String> subentries = FXCollections.observableArrayList();
-//        for ( Object entry: Collections.unmodifiableList(list)) {
-//            String entryText = (String) entry;
-//            if (entryText.toUpperCase().contains(key)) {
-//                subentries.add(entryText);
-//            }
-//        }
-//        return subentries;
-//    }
-
     public static ArrayList<String> dictionarySearcher(ArrayList<String> list, String key) {
         ArrayList<String> subentries = new ArrayList<>();
-        for (String enty : list) {
-            if (enty.toUpperCase().contains(key)) {
-                subentries.add(enty);
+        for (String target : list) {
+            if (target.toUpperCase().contains(key)) {
+                subentries.add(target);
             }
         }
         return subentries;

@@ -11,10 +11,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class AddWordController {
+    public TextField addTarget;
     @FXML
-    private TextField addTarget;
-    @FXML
-    private TextField addExplain;
+    TextField addExplain;
     @FXML
     TextField oldTarget;
     @FXML
@@ -24,9 +23,9 @@ public class AddWordController {
     @FXML
     TextField newExplain;
     @FXML
-    private TextField deleteTarget;
+    TextField deleteTarget;
     @FXML
-    private TextField deleteExplain;
+    TextField deleteExplain;
     @FXML
     Text alertADD;
     @FXML
@@ -60,7 +59,7 @@ public class AddWordController {
     public void editWordButton() {
         if (oldTarget.getText().length() == 0) {
             alertEDIT.setText("Target is NULL");
-        } else if (dictionaryManagement.dictionaryLookup(oldTarget.getText()) == null) {
+        } else if (dictionaryManagement.dictionaryLookup(oldTarget.getText()).length() == 0) {
             alertEDIT.setText("Can't find the word you are looking for");
         } else {
             alertEDIT.setText("DONE!!!");
@@ -75,7 +74,7 @@ public class AddWordController {
     public void deleteWordButton() {
         if (deleteTarget.getText().length() == 0) {
             alertDELETE.setText("Target is NULL");
-        } else if (dictionaryManagement.dictionaryLookup(deleteTarget.getText()) == null) {
+        } else if (dictionaryManagement.dictionaryLookup(deleteTarget.getText()).length() == 0) {
             alertDELETE.setText("Can't find the word you are looking for");
         } else {
             alertDELETE.setText("DONE!!!");
