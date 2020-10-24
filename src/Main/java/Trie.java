@@ -25,7 +25,11 @@ public class Trie {
     private void insertRecursive(TrieNode current, Word word, int index) {
         if (index == word.getWord_target().length()) {
             current.endOfWord = true;
-            current.explainOfNode += ", " + word.getWord_explain();
+            if (current.explainOfNode.length() == 0) {
+                current.explainOfNode = word.getWord_explain();
+            } else {
+                current.explainOfNode += ", " + word.getWord_explain();
+            }
             return;
         }
         char ch = word.getWord_target().charAt(index);

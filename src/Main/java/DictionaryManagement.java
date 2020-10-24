@@ -106,9 +106,8 @@ public class DictionaryManagement {
             if(delTarget.equals(Dictionary.words.get(i).getWord_target())){
                 n = i;
             }
-            Dictionary.words.remove(n);
         }
-
+        Dictionary.words.remove(n);
     }
 
     /**
